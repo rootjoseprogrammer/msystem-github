@@ -8,7 +8,11 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <div class="panel panel-default"><div class="panel-heading">Inventariado</div><!-- /.panel-heading -->
+      <div class="panel panel-default">
+				<div class="panel-heading">
+					Inventariado
+					<a href="{{url('inventories')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+				</div><!-- /.panel-heading -->
 
       <div class="row">
         <div class="col-lg-6 pull-right">
@@ -49,7 +53,7 @@
                           <i class="fa fa-eye" aria-hidden="true"></i>Ver
                         </a>
 												{{-- onclick="return confirm('DESEA BORRAR REGISTRO ?');"  --}}
-                        <a href="{{ url('maintenances/delete/'. $i->id) }}" title="Eliminar" class="btn btn-danger btn-sm">
+                        <a href="{{ url('inventories/delete/'. $i->id) }}" title="Eliminar" class="btn btn-danger btn-sm">
                           <i class="fa fa-trash" aria-hidden="true"></i>Desincorporar
                         </a>
                       </td>

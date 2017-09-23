@@ -30,7 +30,6 @@ class CreateMaintenanceRequestsTable extends Migration
             $table->string('plumbing')->nullable();
             $table->string('refrigeration')->nullable();
             $table->string('deposit')->nullable();
-            $table->string('accomplished')->nullable();
             $table->string('supervisor')->nullable();
             $table->date('date')->nullable();
             $table->longText('materials_description')->nullable();

@@ -29,32 +29,37 @@ class Brand extends Model
 
     public function drives()
     {
-        return $this->hasMany('App\HardDrive');
+        return $this->hasOne('App\HardDrive');
     }
 
     public function displays()
     {
-        return $this->hasMany('App\Display');
+        return $this->hasOne('App\Display');
     }
 
     public function printers()
     {
-        return $this->hasMany('App\Printer');
+        return $this->hasOne('App\Printer');
     }
 
     public function equipmens()
     {
-        return $this->hasMany('App\Equipment');
+        return $this->hasOne('App\Equipment');
     }
 
     public function netcard()
     {
-        return $this->hasMany('App\NetCard');
+        return $this->hasOne('App\NetCard');
     }
 
     public function ram()
     {
-        return $this->hasMany('App\Ram');
+        return $this->hasOne('App\Ram');
+    }
+
+    public function othercomponent()
+    {
+      return $this->hasOne('App\OtherComponent');
     }
 
     public function scopeName($query, $name)

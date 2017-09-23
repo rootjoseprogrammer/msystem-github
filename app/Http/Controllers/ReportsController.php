@@ -13,8 +13,7 @@ use App\ReadDriver;
 use App\Video;
 use App\Equipment;
 use App\Application;
-use App\Display;
-use App\Printer;
+use App\Component;
 use Auth;
 
 class ReportsController extends Controller
@@ -50,8 +49,8 @@ class ReportsController extends Controller
         $reads = ReadDriver::getPDF();
         $videos = Video::getPDF();
         $maints = Maintenance::getPDF();
-				$displays = Display::getPDF();
-				$printers = Printer::getPDF();
+				$displays = Component::getPDF('display');
+				$printers = Component::getPDF('printer');
 
         $view = \View::make('reports.reportGeneral', compact('eq',
             'HardDrives', 'micros','ms', 'nets', 'rams' , 'reads', 'videos', 'maints', 'displays', 'printers'))->render();
@@ -67,7 +66,7 @@ class ReportsController extends Controller
 
 		public function reportsDisplays()
     {
-    	$displays = Display::getPDF();
+    	$displays = Component::getPDF('display');
 			// dd($eq);
 
     	$view = \View::make('reports.reportDisplay', compact('displays'))->render();
@@ -82,7 +81,7 @@ class ReportsController extends Controller
 
 		public function reportsPrinters()
     {
-    	$printers = Printer::getPDF();
+    	$printers = Component::getPDF('printer');
 			// dd($eq);
 
     	$view = \View::make('reports.reportPrinter', compact('printers'))->render();

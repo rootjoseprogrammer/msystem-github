@@ -60,6 +60,22 @@
 							</span>
 						@endif
 					</div>
+					@if(Auth::user()->role_id == 1)
+						<div class="form-group {{ $errors->has('technical') ? ' has-error' : '' }}">
+							{!! Form::label('Tecnico') !!}
+							<select class="form-control" name="technical_id">
+								<option value=""></option>
+								@foreach ($users as $u)
+									<option value="{{$u->Uid}}">{{$u->Uname}} {{$u->Ulastname}}</option>
+								@endforeach
+							</select>
+							@if ($errors->has('technical'))
+								<span class="help-block">
+									<strong>{{ $errors->first('technical') }}</strong>
+								</span>
+							@endif
+						</div>
+					@endif
 
 					<div class="form-group">
 						<div class="col-md-6" style="margin-top: 20px;">

@@ -13,7 +13,7 @@ use Session;
 use Validator;
 use Carbon\Carbon;
 
-class MaintenancesRequestsConstoller extends Controller
+class MaintenancesRequestsController extends Controller
 {
   /**
    * Create a new controller instance.
@@ -218,10 +218,10 @@ class MaintenancesRequestsConstoller extends Controller
                   'host' => $request->ip(),
                   'operation' => 'UPDATE',
                   'table' => 'Peticiones a Mantenimineto',
-                  'reason' => 'edicion de solicitud de mantenimiento'
+                  'reason' => $request->reason
                 ]);
 
-                Session::flash('message-success', 'SOLICITUD ENVIADA');
+                Session::flash('message-success', 'SOLICITUD EDITADA');
                 return redirect()->back();
             }
         }
@@ -234,7 +234,11 @@ class MaintenancesRequestsConstoller extends Controller
 
     public function delete($id)
     {
+      $request = MaintenanceRequest::find($id);
 
+      $messages = Application::getMessages(Auth::user()->department_id);
+
+      return view('requests-maintenances.delete', compact('request', 'messages'));
     }
 
     /**
@@ -243,9 +247,25 @@ class MaintenancesRequestsConstoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $e = MaintenanceRequest::find($id);
+
+        Record::create([
+          'date' => date("Y-m-d H:i:s"),
+          'user' => Auth::user()->name.' '.Auth::user()->lastname,
+          'host' => $_SERVER['REMOTE_ADDR'],
+          'operation' => "DELETE",
+          'table' => 'Solicitud a Mantenimiento',
+          'reason' => $request->reason
+        ]);
+
+        $e->delete();
+
+        Session::flash('message-delete', 'REGISTRO BORRADO');
+
+        return redirect()->To('requests-maintenances');
     }
 
     public function response(Request $request, $id)

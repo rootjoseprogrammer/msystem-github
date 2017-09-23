@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Application;
-use App\Printer;
+use App\Component;
 use App\Record;
 use App\Brand;
 use Validator;
@@ -31,18 +31,16 @@ class PrintersController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         if($request->isMethod('get') && isset($request->search))
         {
-          $printers = Printer::PrintersSearch($request->search);
+          $printers = Component::ComponentsSearch($request->search, 'printer');
           return view('printers.index', compact('printers', 'messages'));
         }
         else
         {
-          $printers = Printer::Printers();
+          $printers = Component::Components('printer');
           return view('printers.index', compact('printers', 'messages'));
         }
     }
@@ -56,8 +54,7 @@ class PrintersController extends Controller
     {
         //
         $brands = Brand::AllBrands();
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         return view('printers.create', compact('brands', 'messages'));
     }
@@ -74,9 +71,9 @@ class PrintersController extends Controller
         if($request->isMethod('post'))
         {
             $validator = Validator::make($request->all(), [
-                'serial' => 'required|unique:printers|max:255',
+                'serial' => 'required|unique:components|max:255',
                 'model' => 'required|max:255',
-                'state_number' => 'required|unique:printers|max:255',
+                'state_number' => 'required|unique:components|max:255',
                 'brand_id' => 'required',
                 'estafamos' => 'required|max:255',
                 'type' => 'required|max:255'
@@ -95,7 +92,8 @@ class PrintersController extends Controller
             }
             else
             {
-                $printers = new Printer($request->all());
+                $printers = new Component($request->all());
+                $printers->component_type = 'printer';
                 $printers->save();
 
                 Record::create([
@@ -138,9 +136,8 @@ class PrintersController extends Controller
     public function edit($id)
     {
         //
-        $printer = Printer::findPrinter($id);
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
+        $printer = Component::findComponent($id, 'printer');
+        $messages = Application::getMessages(Auth::user()->department_id);
         $brands = Brand::AllBrands();
 
         return view('printers.edit', compact('printer', 'messages', 'brands'));
@@ -182,7 +179,7 @@ class PrintersController extends Controller
             }
             else
             {
-                Printer::where('id', $id)
+                Component::where('id', $id)
                 ->update(['brand_id' => $request->brand_id,
                         'serial' => $request->serial,
                         'model' => $request->model,
@@ -215,11 +212,8 @@ class PrintersController extends Controller
 
     public function delete($id)
     {
-      $printer = Printer::findPrinter($id);
-
-      $department_id = Auth::user()->department_id;
-
-      $messages = Application::getMessages($department_id);
+      $printer = Component::findComponent($id, 'printer');
+      $messages = Application::getMessages(Auth::user()->department_id);
 
       return view('printers.delete', compact('printer', 'messages'));
     }
@@ -233,7 +227,7 @@ class PrintersController extends Controller
     public function destroy(Request $request, $id)
     {
         //
-        $printer = Printer::find($id);
+        $printer = Component::find($id);
 
         Record::create([
           'date' => date("Y-m-d H:i:s"),

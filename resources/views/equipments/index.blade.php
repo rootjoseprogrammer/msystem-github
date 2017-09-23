@@ -14,6 +14,7 @@
         	<div class="panel panel-default">
                 <div class="panel-heading">
                     Equipos Computacionales
+										<a href="{{url('equipments')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                 </div>
                 <!-- /.panel-heading -->
 
@@ -47,18 +48,18 @@
                             <tbody>
                             @foreach($equipments as $equipment)
                               	<tr>
-                                    <td>{{ $equipment->Eid }}</td>
+                                    <td>{{ $equipment->id }}</td>
                                     <td>{{ $equipment->serial }}</td>
                                     <td>{{ $equipment->IP }}</td>
                                     <td>{{ strtoupper($equipment->type) }}</td>
-                                    <td>{{ strtoupper($equipment->Dname) }}</td>
-                                    <td>{{ $equipment->Bname}}</td>
+                                    <td>{{ strtoupper($equipment->department->name) }}</td>
+                                    <td>{{ $equipment->brand->name}}</td>
                                     <td width="200px" style="text-align: center;">
-                                    	<a href="{{ url('equipments/'.$equipment->Eid.'/edit')}}" title="Editar" class="btn btn-warning btn-sm">
+                                    	<a href="{{ url('equipments/'.$equipment->id.'/edit')}}" title="Editar" class="btn btn-warning btn-sm">
                                     		<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     		Editar</a>
 																				{{--onclick="return confirm('DESEA BORRAR REGISTRO ?');"  --}}
-                                    	<a  href="{{ url('equipments/delete/'. $equipment->Eid) }}" title="Eliminar" class="btn btn-danger btn-sm">
+                                    	<a  href="{{ url('equipments/delete/'. $equipment->id) }}" title="Eliminar" class="btn btn-danger btn-sm">
                                     		<i class="fa fa-trash" aria-hidden="true"></i>
                                     		Desincorporar</a>
 

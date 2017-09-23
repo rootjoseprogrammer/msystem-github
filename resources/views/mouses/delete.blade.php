@@ -10,11 +10,11 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Impresora</div>
+				<div class="panel-heading">Monitor</div>
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
-              {!! Form::open(['route' => ['printers.destroy', $printer->Cid], 'method' => 'DELETE', 'role' => 'form', 'id' => 'FormPrintersDelete']) !!}
+              {!! Form::open(['route' => ['mouses.destroy', $m->Cid], 'method' => 'DELETE', 'role' => 'form', 'id' => 'FormMousesDelete']) !!}
               {{-- {{ method_field('DELETE') }} --}}
               <div class="form-group {{ $errors->has('reason') ? ' has-error' : '' }}">
                 {!! Form::label('Motivo') !!}

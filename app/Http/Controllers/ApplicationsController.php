@@ -22,9 +22,8 @@ class ApplicationsController extends Controller
 
 
         $this->middleware('auth');
-        $this->middleware('admin', ['except' => ['store']] );
-        $this->middleware('mCheck', ['except' => ['store']] );
-        //$this->middleware('home', ['except' => ['store']], ['only' => ['index']] );
+        $this->middleware('admin', ['except' => ['store', 'update']] );
+        $this->middleware('mCheck', ['except' => ['store', 'update']] );
     }
 
     /**
@@ -123,6 +122,39 @@ class ApplicationsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if($request->isMethod('put'))
+       {
+           $validator = Validator::make($request->all(), [
+               'according' => 'required|max:255',
+           ]);
+
+           // check if the validator failed -----------------------
+           if ($validator->fails())
+           {
+
+               // get the error messages from the validator
+               $messages = $validator->messages();
+
+               // redirect our user back to the form with the errors from the validator
+               return redirect()->back()
+                   ->withErrors($validator);
+           }
+           else
+           {
+               Application::where('id', $id)
+               ->update(['according' => $request->according]);
+
+               Session::flash('message-success', 'CONFORME ENVIADO');
+
+               return redirect()->to('show/'.$id);
+           }
+       }
+       else
+       {
+           Session::flash('message-error', 'ERROR EN LA PETICION');
+
+           return redirect()->to('show/'.$id);
+       }
     }
 
     /**

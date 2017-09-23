@@ -5,136 +5,6 @@
 		<div class="col-lg-12">
       <h1 class="page-header">Panel Administrativo</h1>
     </div>
-		{{-- <div class="col-lg-3 col-md-6 col-xs-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-comments fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge">{{ $messages->count() }}</div>
-              <div>Solicitudes</div>
-            </div>
-          </div>
-        </div>
-        <a href="#">
-          <div class="panel-footer">
-            <a href="{{ url('dashboard/requests') }}">
-              <span class="pull-left">Ver Todos</span>
-              <span class="pull-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </span>
-            </a>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-      </div>
-    </div> --}}
-
-    {{-- <div class="col-lg-3 col-md-6 col-xs-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-tasks fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge"></div>
-              <div>Equipos</div>
-            </div>
-          </div>
-        </div>
-        <a href="{{ url('equipments') }}">
-          <div class="panel-footer">
-            <a href="{{ url('equipments') }}">
-              <span class="pull-left">Ir</span>
-              <span class="pull-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </span>
-            </a>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-      </div>
-    </div> --}}
-
-    {{-- <div class="col-lg-3 col-md-6 col-xs-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-file-pdf-o fa-5x" aria-hidden="true"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div>Reportes</div>
-            </div>
-          </div>
-        </div>
-        <a href="{{ url('reports') }}">
-          <div class="panel-footer">
-            <a href="{{ url('reports') }}">
-              <span class="pull-left">Ir</span>
-              <span class="pull-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </span>
-            </a>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-      </div>
-    </div> --}}
-
-    {{--<div class="col-lg-3 col-md-6 col-xs-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-3">
-              <i class="fa fa-tasks fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge"></div>
-              <div>Mantenimiento</div>
-            </div>
-          </div>
-        </div>
-        <a href="{{ url('maintenances') }}">
-          <div class="panel-footer">
-            <a href="{{ url('maintenances') }}">
-              <span class="pull-left">Ir</span>
-              <span class="pull-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </span>
-            </a>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-      </div>
-    </div> --}}
-
-		{{-- <div class="col-md-6 col-lg-3 col-xs-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-xs-3">
-              <i class="fa fa-comments fa-5x"></i>
-            </div>
-            <div class="col-xs-9 text-right">
-              <div class="huge">{{ $messages->count() }}</div>
-              <div>Solicitudes</div>
-            </div>
-					</div>
-				</div>
-				<div class="panel-body">
-					<a href="{{ url('dashboard/requests') }}">
-						<span class="pull-left">Ver Todos</span>
-						<span class="pull-right">
-							<i class="fa fa-arrow-circle-right"></i>
-						</span>
-					</a>
-				</div>
-			</div>
-		</div> --}}
 
 		{{--  SOLICITUDES--}}
 		<div class="col-md-6 col-lg-3 col-xs-12">
@@ -195,6 +65,18 @@
 				</div>
 				<div class="panel-body">
 					<a href="{{ url('requests-maintenances') }}" style="cursor: pointer;">Historal<span class="pull-right">
+						<i class="fa fa-arrow-circle-right"></i>
+					</span></a>
+				</div>
+			</div>
+		</div>
+
+		{{--  MATENIMIENTO --}}
+		<div class="col-md-6 col-lg-3 col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Mis Trabajos</div>
+				<div class="panel-body">
+					<a href="{{ url('dashboard/jobs') }}" style="cursor: pointer;"> Ir <span class="pull-right">
 						<i class="fa fa-arrow-circle-right"></i>
 					</span></a>
 				</div>

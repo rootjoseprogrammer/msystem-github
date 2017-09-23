@@ -59,20 +59,22 @@
 																				<i class="fa fa-eye" aria-hidden="true"></i>
                                     		Ver
 																			</a>
-																				<a href="{{ url('dashboard/'.$m->Aid. '/edit')}}" title="Editar" class="btn btn-warning btn-sm">
-																				Editar
-																				</a>
+																				@if($m->according == null)
+																					<a href="{{ url('dashboard/'.$m->Aid. '/edit')}}" title="Editar" class="btn btn-warning btn-sm">
+																						Editar
+																					</a>
+																				@endif
                                         <a onclick="return confirm('DESEA BORRAR REGISTRO ?');" href="{{ url('dashboard/destroy/'. $m->Aid) }}" title="Eliminar" class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                             Eliminar
 																					</a>
-																					@if($m->completed_work == null)
+																					{{-- @if($m->completed_work == null)
 																					<a href="#" onclick="event.preventDefault();document.getElementById('end-form').submit();" class="btn btn-primary btn-sm">
 											                        Finalizado
 											                    </a>
 																					{{Form::open(['url' => ['dashboard/endwork', $m->Aid], 'id' => 'end-form', 'method' => 'PUT'])}}
 																					{!! Form::close() !!}
-																				@endif
+																				@endif --}}
 
                                     </td>
                                 </tr>

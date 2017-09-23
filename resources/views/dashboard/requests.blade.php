@@ -18,6 +18,7 @@
         	<div class="panel panel-default">
                 <div class="panel-heading">
                     Solicitudes
+										<a href="{{url('dashboard/requests')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -60,7 +61,7 @@
 																				<i class="fa fa-eye" aria-hidden="true"></i>
                                     		Ver
 																			</a>
-																			@if(Auth::user()->role_id == 1)
+																			@if(Auth::user()->role_id == 1 && $m->according == null ||  $m->according == null)
 																				<a href="{{ url('dashboard/'.$m->id. '/edit')}}" title="Editar" class="btn btn-warning btn-sm">
 																				Editar
 																				</a>
@@ -69,11 +70,11 @@
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                             Eliminar
 																					</a>
-																					@if($m->completed_work == null)
+																					{{-- @if($m->completed_work == null)
 																					<a href="{{ url('dashboard/endwork/'. $m->id) }}" onclick="return confirm('FINALIZAR TRABAJO ?');" class="btn btn-primary btn-sm">
 											                        Finalizado
 											                    </a>
-																				@endif
+																				@endif --}}
 
                                     </td>
                                 </tr>

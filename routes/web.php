@@ -46,9 +46,13 @@ Route::put('dashboard/updateAnswer/{id}',[
     'as' => 'dashboard.updateAnswer',
     'uses' => 'DashboardController@updateAnswer'
 ]);
-Route::get('dashboard/endwork/{id}',[
+Route::put('dashboard/endwork/{id}',[
     'as' => 'dashboard.endwork',
     'uses' => 'DashboardController@endWork'
+]);
+Route::put('mdashboard/endwork/{id}',[
+    'as' => 'mdashboard.endwork',
+    'uses' => 'mDashboardController@endWork'
 ]);
 Route::get('dashboard/jobs',[
     'as' => 'dashboard.jobs',
@@ -87,7 +91,7 @@ Route::put('administration/Userupdate/{id}',[
 
 Route::put('requests-maintenances/response/{id}', [
   'as' => 'requests-maintenances.response',
-  'uses' => 'MaintenancesRequestsConstoller@response'
+  'uses' => 'MaintenancesRequestsController@response'
 ]);
 
 //RUTA DE ACCIONES POR CONTROLLERS
@@ -120,7 +124,11 @@ Route::get('read-drivers/delete/{id}', 'ReadDriversController@delete');
 Route::get('videos/delete/{id}', 'VideosController@delete');
 Route::get('maintenances/delete/{id}', 'MaintenancesController@delete');
 Route::get('users/delete/{id}', 'UsersController@delete');
-
+Route::get('mdashboard/delete/{id}', 'mDashboardController@delete');
+Route::get('inventories/delete/{id}', 'InventoriesController@delete');
+Route::get('requests-maintenances/delete/{id}', 'MaintenancesRequestsController@delete');
+Route::get('mouses/delete/{id}', 'MousesController@delete');
+Route::get('keyboards/delete/{id}', 'KeyboardsController@delete');
 
 //RUTAS PARA REPORTES EN PDF
 Route::get('reports/equipments', 'ReportsController@reportsEquipments');
@@ -158,4 +166,6 @@ Route::resource('inventories', 'InventoriesController');
 Route::resource('records', 'RecordsController');
 Route::resource('displays', 'DisplaysController');
 Route::resource('printers', 'PrintersController');
-Route::resource('requests-maintenances', 'MaintenancesRequestsConstoller');
+Route::resource('mouses', 'MousesController');
+Route::resource('keyboards', 'KeyboardsController');
+Route::resource('requests-maintenances', 'MaintenancesRequestsController');

@@ -72,6 +72,17 @@
                 @endif
               </div>
 
+              <div class="form-group {{ $errors->has('reason') ? ' has-error' : '' }}">
+                  {!! Form::label('Motivo') !!}
+                  {!! Form::textarea('reason', null, ['class' => 'form-control', 'required', 'autofocus']) !!}
+
+                  @if ($errors->has('reason'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('reason') }}</strong>
+                      </span>
+                  @endif
+              </div>
+
               <div class="form-group">
                 <div class="col-md-6" style="margin-top: 20px;">
                   {!! Form::submit('EDITAR', ['class' => 'btn btn-warning btn-block']) !!}

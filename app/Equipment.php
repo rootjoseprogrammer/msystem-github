@@ -47,37 +47,47 @@ class Equipment extends Model
 
     public function hardDrives()
     {
-        return $this->hasMany('App\HardDrive');
+        return $this->hasOne('App\HardDrive');
     }
 
     public function microprocessor()
     {
-        return $this->hasMany('App\Microprocessor');
+        return $this->hasOne('App\Microprocessor');
     }
 
     public function motherboard()
     {
-        return $this->hasMany('App\Motherboard');
+        return $this->hasOne('App\Motherboard');
     }
 
     public function netcard()
     {
-        return $this->hasMany('App\NetCard');
+        return $this->hasOne('App\NetCard');
     }
 
     public function ram()
     {
-        return $this->hasMany('App\Ram');
+        return $this->hasOne('App\Ram');
     }
 
     public function maintenance()
     {
-        return $this->hasMany('App\Maintenance');
+        return $this->hasOne('App\Maintenance');
     }
 
     public function inventory()
     {
       return $this->belongsTo('App\Inventory');
+    }
+
+    public function component()
+    {
+      return $this->hasOne('App\Component');
+    }
+
+    public function othercomponent()
+    {
+      return $this->hasOne('App\OtherComponent');
     }
 
     public function scopeEquipments($query)

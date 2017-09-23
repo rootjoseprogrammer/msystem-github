@@ -4,14 +4,17 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-      <h1 class="page-header">Equipo {{ $data->Eserial }}</h1>
+      <h1 class="page-header">Equipo {{ strtoupper($data->Eserial) }}</h1>
     </div>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">{{ $data->Eserial }}</div>
+				<div class="panel-heading">
+					{{ strtoupper($data->Eserial) }}
+					<a href="{{url('inventories')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+				</div>
         <div class="panel-body">
           <div class="table-responsive">
             <table class="table table-responsive">
@@ -37,6 +40,57 @@
                 <tr>
                   <th style="border: none; text-align:center;" colspan="3">COMPONENTES</th>
                 </tr>
+								<tr>
+                  <th colspan="3">MONITOR</th>
+                </tr>
+                <tr>
+                  <th style="border: none;">Serial</th>
+                  <th style="border: none;">Numero Estadal</th>
+                  <th style="border: none;">Marca</th>
+                </tr>
+                <tr>
+									@if($data->t_c_registered == 0)
+										<td colspan="3" style="text-align:center;">NO EQUIPADO</td>
+									@else
+	                  <td style="border: none;">{{ $data->t_c_serial }}</td>
+	                  <td style="border: none;">{{ $data->state_number}}</td>
+	                  <td style="border: none;">{{ $data->t_cb_Bname }}</td>
+									@endif
+                </tr>
+								<tr>
+									<th colspan="3">TECLADO</th>
+								</tr>
+								<tr>
+									<th style="border: none;">Serial</th>
+									<th style="border: none;">B. Nacional</th>
+									<th style="border: none;">Marca</th>
+								</tr>
+								<tr>
+									@if($data->t_k_other_reg == 0)
+										<td colspan="3" style="text-align:center;">NO EQUIPADO</td>
+									@else
+										<td style="border: none;">{{ $data->t_k_other_serial }}</td>
+										<td style="border: none;">{{ $data->t_k_other_number}}</td>
+										<td style="border: none;">{{ $data->t_k_other_Bname }}</td>
+									@endif
+								</tr>
+								<tr>
+									<th colspan="3">MOUSE</th>
+								</tr>
+								<tr>
+									<th style="border: none;">Serial</th>
+									<th style="border: none;">B. Nacional</th>
+									<th style="border: none;">Marca</th>
+								</tr>
+								<tr>
+									@if($data->t_m_other_reg == 0)
+										<td colspan="3" style="text-align:center;">NO EQUIPADO</td>
+									@else
+										<td style="border: none;">{{ $data->t_m_other_serial }}</td>
+										<td style="border: none;">{{ $data->t_m_other_number}}</td>
+										<td style="border: none;">{{ $data->t_m_other_Bname }}</td>
+									@endif
+								</tr>
                 <tr>
                   <th colspan="3">DISCO DURO</th>
                 </tr>

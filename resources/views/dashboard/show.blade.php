@@ -25,17 +25,22 @@
         </div>
 				@if($r->completed_work != null)
 					<div>
-          	<p><strong>Finalizado El:</strong> {{ Carbon\Carbon::parse($r->completed_work)->format('d-m-Y') }}</p>
+          	<p><strong>Finalizado el Dia:</strong> {{ Carbon\Carbon::parse($r->completed_work)->format('d-m-Y') }}</p>
         	</div>
 				@endif
         <hr>
         <div>
           <p><strong>Solicitud:</strong> {{ $r->message }}</p>
         </div>
+				@if($r->according != null)
+					<div>
+          	<p><strong> Conforme:</strong> {{ $r->according }}</p>
+        	</div>
+				@endif
       </div>
     </div>
 
-			@if($r->completed_work == null)
+			@if($r->according == null)
 				<div class="col-lg-6">
 					{!! Form::open(['url' => ['dashboard/maintenancesRequest', $r->id], 'method' => 'PUT', 'role' => 'form', 'id' => 'FormAddResponse']) !!}
 					<div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
@@ -86,6 +91,17 @@
 					{!! Form::close() !!}
 				</div>
 			</div>
-		@endif
+			@endif
+
+			@if($r->according != null)
+			<div class="col-lg-2">
+					<a href="#" onclick="event.preventDefault();document.getElementById('end-form').submit();" class="btn btn-primary btn-block">
+							Finalizar Trabajo
+					</a>
+					{{Form::open(['route' => ['dashboard.endwork', $r->Aid], 'id' => 'end-form', 'method' => 'PUT'])}}
+					{!! Form::close() !!}
+			</div>
+			@endif
+
 	@endforeach
 @endsection

@@ -147,7 +147,7 @@
 
                <div class="form-group{{ $errors->has('supervisor') ? ' has-error' : '' }}">
                  {!! Form::label('Supervisor') !!}
-                 <select class="form-control" name="supervisor">
+                 <select class="form-control" name="supervisor" required="required">
                    <option value=""></option>
                    @foreach ($users as $user)
                      <option value="{{$user->Uname}} {{$user->lastname}}">{{$user->Uname}} {{$user->lastname}}</option>
@@ -170,7 +170,7 @@
                  @endif
                </div>
 
-               <div class="form-group {{ $errors->has('date') ? ' has-error' : '' }}">
+               {{-- <div class="form-group {{ $errors->has('date') ? ' has-error' : '' }}">
                  {!! Form::label('Fecha de Realizacion') !!}
                  {!! Form::date('date', null, ['class' => 'form-control', 'required', 'autofocus']) !!}
                  @if ($errors->has('date'))
@@ -178,7 +178,7 @@
                      <strong>{{ $errors->first('date') }}</strong>
                    </span>
                  @endif
-               </div>
+               </div> --}}
 
                <div class="form-group {{ $errors->has('quantity') ? ' has-error' : '' }}">
                  {!! Form::label('Cantidad de Material') !!}

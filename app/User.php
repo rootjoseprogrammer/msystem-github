@@ -51,12 +51,12 @@ class User extends Authenticatable
 
     public function application()
     {
-        return $this->hasMany('App\Application');
+        return $this->hasOne('App\Application');
     }
 
     public function maintenance_request()
     {
-        return $this->hasMany('App\MaintenanceRequest');
+        return $this->hasOne('App\MaintenanceRequest');
     }
 
     public function scopeAllUsers($query)

@@ -11,7 +11,10 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">  Mantenimientos</div><!-- /.panel-heading -->
+				<div class="panel-heading">
+					Mantenimientos
+					<a href="{{url('maintenances')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+				</div><!-- /.panel-heading -->
 				<div class="row">
 					<div class="col-lg-6 pull-right">
 						{!! Form::open(['route' => 'maintenances.index', 'method' => 'GET']) !!}

@@ -14,7 +14,7 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
-              {!! Form::open(['route' => ['displays.destroy', $display->Did], 'method' => 'DELETE', 'role' => 'form', 'id' => 'FormDisplaysDelete']) !!}
+              {!! Form::open(['route' => ['displays.destroy', $display->Cid], 'method' => 'DELETE', 'role' => 'form', 'id' => 'FormDisplaysDelete']) !!}
               {{-- {{ method_field('DELETE') }} --}}
               <div class="form-group {{ $errors->has('reason') ? ' has-error' : '' }}">
                 {!! Form::label('Motivo') !!}

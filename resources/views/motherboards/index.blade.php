@@ -14,6 +14,7 @@
         	<div class="panel panel-default">
                 <div class="panel-heading">
                     Tarjeta Madre
+										<a href="{{url('motherboards')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                 </div>
                 <!-- /.panel-heading -->
 

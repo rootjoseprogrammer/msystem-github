@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Application;
-use App\Display;
+use App\Component;
 use App\Record;
 use App\Brand;
 use Validator;
@@ -31,18 +31,16 @@ class DisplaysController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         if($request->isMethod('get') && isset($request->search))
         {
-          $displays = Display::DisplaysSearch($request->search);
+          $displays = Component::ComponentsSearch($request->search, 'display');
           return view('displays.index', compact('displays', 'messages'));
         }
         else
         {
-          $displays = Display::Displays();
+          $displays = Component::Components('display');
           return view('displays.index', compact('displays', 'messages'));
         }
     }
@@ -56,8 +54,7 @@ class DisplaysController extends Controller
     {
         //
         $brands = Brand::AllBrands();
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         return view('displays.create', compact('brands', 'messages'));
     }
@@ -74,9 +71,9 @@ class DisplaysController extends Controller
         if($request->isMethod('post'))
         {
             $validator = Validator::make($request->all(), [
-                'serial' => 'required|unique:displays|max:255',
+                'serial' => 'required|unique:components|max:255',
                 'model' => 'required|max:255',
-                'state_number' => 'required|unique:displays|max:255',
+                'state_number' => 'required|unique:components|max:255',
                 'brand_id' => 'required',
                 'estafamos' => 'required|max:255',
                 'type' => 'required|max:255'
@@ -97,8 +94,9 @@ class DisplaysController extends Controller
             {
 
 
-                $displays = new Display($request->all());
-
+                $displays = new Component($request->all());
+                $displays->component_type = 'display';
+                $displays->registered = 0;
                 $displays->save();
 
                 Record::create([
@@ -141,9 +139,8 @@ class DisplaysController extends Controller
     public function edit($id)
     {
         //
-        $display = Display::findDisplay($id);
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
+        $display = Component::findComponent($id, 'display');
+        $messages = Application::getMessages(Auth::user()->department_id);
         $brands = Brand::AllBrands();
 
         return view('displays.edit', compact('display', 'messages', 'brands'));
@@ -168,7 +165,6 @@ class DisplaysController extends Controller
               'brand_id' => 'required',
               'estafamos' => 'required|max:255',
               'type' => 'required|max:255',
-              'brand_id' => 'required',
               'reason' => 'required'
             ]);
 
@@ -185,7 +181,7 @@ class DisplaysController extends Controller
             }
             else
             {
-                Display::where('id', $id)
+                Component::where('id', $id)
                 ->update(['brand_id' => $request->brand_id,
                         'serial' => $request->serial,
                         'model' => $request->model,
@@ -218,11 +214,8 @@ class DisplaysController extends Controller
 
     public function delete($id)
     {
-      $display = Display::findDisplay($id);
-
-      $department_id = Auth::user()->department_id;
-
-      $messages = Application::getMessages($department_id);
+      $display = Component::findComponent($id, 'display');
+      $messages = Application::getMessages(Auth::user()->department_id);
 
       return view('displays.delete', compact('display', 'messages'));
     }
@@ -236,7 +229,7 @@ class DisplaysController extends Controller
     public function destroy(Request $request, $id)
     {
         //
-        $display = Display::find($id);
+        $display = Component::find($id);
 
         Record::create([
           'date' => date("Y-m-d H:i:s"),

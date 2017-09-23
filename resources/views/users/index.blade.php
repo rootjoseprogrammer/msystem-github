@@ -7,7 +7,10 @@
     </div>
     <div class="col-lg-12">
       <div class="panel panel-default">
-        <div class="panel-heading">Usuarios</div>
+        <div class="panel-heading">
+          Usuarios
+          <a href="{{url('users')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+        </div>
         <div class="row">
 				  <div class="col-lg-6 pull-right">
 				  {!! Form::open(['route' => 'users.index', 'method' => 'GET']) !!}

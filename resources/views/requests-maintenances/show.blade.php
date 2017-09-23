@@ -8,7 +8,10 @@
   </div>
   <div class="row">
     <div class="panel panel-default">
-      <div class="panel-heading">{{ ucwords($request->Uname) }} {{ ucwords($request->lastname) }}</div>
+      <div class="panel-heading">
+				{{ ucwords($request->Uname) }} {{ ucwords($request->lastname) }}
+				<a href="{{url('requests-maintenances')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+			</div>
       <div class="panel-body">
 				<div class="table-responsive">
 					<table class="table">
@@ -54,15 +57,21 @@
 									<td colspan="1" width="560px"><p>ELECTRICIDAD: {{$request->electricity}} </p></td>
 									<td colspan="2" width="560px"><p>PLOMERIA: {{$request->plumbing}} </p></td>
 								</tr>
-								<tr>
-									<td colspan="3" width="560px"><p>REALZADO POR: {{$request->accomplished}} </p></td>
-								</tr>
+								{{-- <tr>
+									<td colspan="3" width="560px"><p>REALIZADO POR: {{$request->accomplished}} </p></td>
+								</tr> --}}
 								<tr>
 									<td colspan="3" width="560px"><p>SUPERVISOR: {{$request->supervisor}} </p></td>
 								</tr>
+
 								<tr>
-									<td colspan="3" width="560px"><p>FECHA DE REALIZACION:</p></td>
+									@if($request->date != null)
+										<td colspan="3" width="560px"><p>FECHA DE REALIZACION: {{Carbon\Carbon::parse($request->date)->format('d-m-Y')}}</p></td>
+									@else
+										<td colspan="3" width="560px"><p>FECHA DE REALIZACION: En Espera</p></td>
+									@endif
 								</tr>
+
 								<tr>
 									<td colspan="3"></td>
 								</tr>
@@ -90,9 +99,6 @@
 									<td colspan="3"></td>
 								</tr>
 								<tr>
-									<td></td>
-								</tr>
-								<tr>
 									<td colspan="3" width="560px"><p style="font-weight: bold;">CONFORME:</p></td>
 								</tr>
 								<tr>
@@ -111,7 +117,7 @@
 					{!! Form::open(['url' => ['requests-maintenances/response', $request->id], 'method' => 'PUT', 'role' => 'form', 'id' => 'FormAddResponse']) !!}
 					<div class="form-group {{ $errors->has('according') ? ' has-error' : '' }}">
 						{!! Form::label('Conforme') !!}
-						{!! Form::text('according', null, ['class' => 'form-control', 'autofocus']) !!}
+						{!! Form::textarea('according', null, ['class' => 'form-control', 'autofocus', 'rows' =>5 ]) !!}
 						@if ($errors->has('according'))
 							<span class="help-block">
 								<strong>{{ $errors->first('according') }}</strong>

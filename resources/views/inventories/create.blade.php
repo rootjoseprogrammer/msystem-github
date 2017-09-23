@@ -115,6 +115,45 @@
 																		</div>
                                 </div>
 
+																<div class="form-group">
+																	{{--  MOUSE--}}
+                                    {!! Form::label('Mouse', 'Mouse', ['class' => 'control-label col-lg-1']) !!}
+																		<div class="col-lg-4">
+																			<select name="mouse_id" class="form-control">
+																					<option value="default">SELECCIONE MOUSE</option>
+																					@foreach($mouses as $data)
+																							<option value="{{ $data->Cid }}">MARCA:{{ strtoupper($data->Bname) }} &nbsp;&nbsp;B.Nac.:{{ strtoupper($data->national_number) }}
+																								&nbsp;&nbsp;SERIAL:{{ strtoupper($data->serial) }}</option>
+																					@endforeach
+																			</select>
+
+																		</div>
+																		{{--  KEYBOARDS --}}
+																		{!! Form::label('Teclado', 'Teclado', ['class' => 'control-label col-lg-1']) !!}
+																		<div class="col-lg-4">
+																			<select name="keyboard_id" class="form-control">
+																					<option value="default">SELECCIONE TECLADO</option>
+																					@foreach($keyboards as $data)
+																						<option value="{{ $data->Cid }}">MARCA:{{ strtoupper($data->Bname) }} &nbsp;&nbsp;B.Nac.:{{ strtoupper($data->national_number) }}
+																							&nbsp;&nbsp;SERIAL:{{ strtoupper($data->serial) }}</option>
+																					@endforeach
+																			</select>
+																		</div>
+                                </div>
+
+																<div class="form-group">
+																	{{-- DISPLAY --}}
+                                    {!! Form::label('Monitor', 'Monitor', ['class' => 'control-label col-lg-1']) !!}
+																		<div class="col-lg-4">
+																			<select name="display_id" class="form-control">
+																					<option value="default">SELECCIONE MONITOR</option>
+																					@foreach($displays as $data)
+																							<option value="{{ $data->Cid }}">MARCA:{{ strtoupper($data->Bname) }} &nbsp;&nbsp;MODELO:{{ strtoupper($data->model) }} &nbsp;&nbsp;SERIAL:{{ strtoupper($data->serial) }}</option>
+																					@endforeach
+																			</select>
+
+																		</div>
+                                </div>
 
 
 																{{--  DESCRPCION DEL EQUIPO QUE SE REGISTRA EN EL INVENTARIO--}}

@@ -14,6 +14,7 @@
         	<div class="panel panel-default">
                 <div class="panel-heading">
                     Memoria Ram
+										<a href="{{url('rams')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
                 </div>
                 <!-- /.panel-heading -->
 

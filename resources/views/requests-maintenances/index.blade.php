@@ -52,18 +52,21 @@
                       <td>{{ $request->type_request }}</td>
                       <td>{{ $request->Uname }} {{$request->lastname}}</td>
                       <td width="200px" style="text-align: center;">
-												<a href="{{ url('requests-maintenances/'.$request->Mid.'/edit')}}" title="Editar" class="btn btn-warning btn-sm">
-													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													Editar
-												</a>
+												 @if($request->according == null)
+													<a href="{{ url('requests-maintenances/'.$request->Mid.'/edit')}}" title="Editar" class="btn btn-warning btn-sm">
+														<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+														Editar
+													</a>
+												@endif
 													<a href="{{ url('requests-maintenances/'.$request->Mid)}}" title="Ver" class="btn btn-info btn-sm">
 														<i class="fa fa-eye" aria-hidden="true"></i>
 														Ver
 													</a>
 
-														{{-- <a  href="{{ url('requests-maintenances/delete/'. $request->Mid) }}" title="Eliminar" class="btn btn-danger btn-sm">
+														<a  href="{{ url('requests-maintenances/delete/'. $request->Mid) }}" title="Eliminar" class="btn btn-danger btn-sm">
 															<i class="fa fa-trash" aria-hidden="true"></i>
-															Desincorporar</a> --}}
+															Borrar
+														</a>
 														</td>
 													</tr>
 												@endforeach

@@ -9,6 +9,7 @@ use App\Application;
 use App\MaintenanceRequest;
 use Validator;
 use App\User;
+use Carbon\Carbon;
 
 class mDashboardController extends Controller
 {
@@ -153,6 +154,18 @@ class mDashboardController extends Controller
         return redirect()->to('mdashboard/requests');
     }
 
+    public function delete($id)
+    {
+        //
+        $a = MaintenanceRequest::find($id);
+
+        $a->delete();
+
+        Session::flash('message-delete', 'REGISTRO BORRADO');
+
+        return redirect()->to('mdashboard/computing');
+    }
+
     public function computing(Request $request)
     {
       $department_id = Auth::user()->department_id;
@@ -197,7 +210,6 @@ class mDashboardController extends Controller
              'deposit' => 'max:255',
              'supervisor' => 'required|max:255',
              'materials_description' => 'required|max:255',
-             'date' => 'required|max:255',
              'quantity' => 'required|max:255',
              'observations' => 'required|max:255',
 
@@ -227,7 +239,6 @@ class mDashboardController extends Controller
              'deposit' => $request->deposit,
              'supervisor' => $request->supervisor,
              'materials_description' => $request->materials_description,
-             'date' => $request->date,
              'quantity' => $request->quantity,
              'observations' => $request->observations,
            ]);
@@ -253,6 +264,20 @@ class mDashboardController extends Controller
         $messages = Application::getMessages(Auth::user()->department_id);
         $request = MaintenanceRequest::show($id);
         return view('mdashboard.show_request', compact('messages', 'request'));
+    }
+
+    /*
+    * Finalizar el Trabajo
+    */
+
+    public function endwork($id)
+    {
+      MaintenanceRequest::where('id', $id)->update([
+        'date' => Carbon::now(),
+        'complete' => 1
+      ]);
+      Session::flash('message-success', 'TRABAJO FINALIZADO');
+      return redirect()->to('mdashboard/computing');
     }
 
 

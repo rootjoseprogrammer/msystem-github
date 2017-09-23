@@ -29,22 +29,22 @@ class Department extends Model
 
     public function user()
     {
-        return $this->hasMany('App\User');
+        return $this->hasOne('App\User');
     }
 
     public function equipments()
     {
-        return $this->hasMany('App\Equipment');
+        return $this->hasOne('App\Equipment');
     }
 
     public function applications()
     {
-        return $this->hasMany('App\Application');
+        return $this->hasOne('App\Application');
     }
-    
+
     public function maintenance_request()
     {
-        return $this->hasMany('App\MaintenanceRequest');
+        return $this->hasOne('App\MaintenanceRequest');
     }
 
     public function scopeName($query, $name)

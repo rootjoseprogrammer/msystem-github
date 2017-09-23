@@ -27,6 +27,7 @@ class CreateApplicationsTable extends Migration
             $table->enum('status', ['Pendiente', 'En Ejecucion', 'Finalizado']);
             $table->longText('answer')->nullable();
             $table->date('completed_work')->nullable();
+            $table->longText('according')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

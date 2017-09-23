@@ -54,14 +54,18 @@
 								<td colspan="1" width="560px"><p>ELECTRICIDAD: {{$request->electricity}} </p></td>
 								<td colspan="2" width="560px"><p>PLOMERIA: {{$request->plumbing}} </p></td>
 							</tr>
-							<tr>
-								<td colspan="3" width="560px"><p>REALZADO POR: {{$request->accomplished}} </p></td>
-							</tr>
+							{{-- <tr>
+								<td colspan="3" width="560px"><p>REALIZADO POR: {{$request->accomplished}} </p></td>
+							</tr> --}}
 							<tr>
 								<td colspan="3" width="560px"><p>SUPERVISOR: {{$request->supervisor}} </p></td>
 							</tr>
 							<tr>
-								<td colspan="3" width="560px"><p>FECHA DE REALIZACION:</p></td>
+								@if($request->date != null)
+									<td colspan="3" width="560px"><p>FECHA DE REALIZACION: {{Carbon\Carbon::parse($request->date)->format('d-m-Y')}}</p></td>
+								@else
+									<td colspan="3" width="560px"><p>FECHA DE REALIZACION: En Espera</p></td>
+								@endif
 							</tr>
 							<tr>
 								<td colspan="3"></td>
@@ -86,64 +90,29 @@
 							<tr>
 								<td colspan="3" width=""><p>{{$request->observations}} </p></td>
 							</tr>
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td colspan="3"><p style="font-weight: bold;">CONFORME:</p></td>
+							</tr>
+							<tr>
+								<td colspan="3" width="" style="border-top: 0px;"><p>{{$request->according}} </p></td>
+							</tr>
 						@endif
 						</tbody>
 					</table>
 				</div>
+				@if($request->complete == 0)
+				<div class="col-lg-2">
+						<a href="#" onclick="event.preventDefault();document.getElementById('end-form').submit();" class="btn btn-primary btn-block">
+								Finalizar Trabajo
+						</a>
+						{{Form::open(['route' => ['mdashboard.endwork', $request->Mid], 'id' => 'end-form', 'method' => 'PUT'])}}
+						{!! Form::close() !!}
+				</div>
+				@endif
 			</div>
     </div>
-
-
-			{{-- @if($r->completed_work == null)
-				<div class="col-lg-6">
-					{!! Form::open(['url' => ['dashboard/maintenancesRequest', $r->id], 'method' => 'PUT', 'role' => 'form', 'id' => 'FormAddResponse']) !!}
-					<div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
-						{!! Form::label('Status') !!}
-						<select class="form-control" name="status">
-							<option value=""></option>
-							<option value="Pendiente">Pendiente</option>
-							<option value="En Ejecucion">En Ejecucion</option>
-							<option value="Finalizado">Finalizado</option>
-						</select>
-						@if ($errors->has('status'))
-							<span class="help-block">
-								<strong>{{ $errors->first('status') }}</strong>
-							</span>
-						@endif
-					</div>
-					<div class="form-group {{ $errors->has('answer') ? ' has-error' : '' }}">
-						{!! Form::label('Respuesta') !!}
-						{!! Form::textarea('answer', null, ['class' => 'form-control', 'required', 'autofocus']) !!}
-						@if ($errors->has('answer'))
-							<span class="help-block">
-								<strong>{{ $errors->first('answer') }}</strong>
-							</span>
-						@endif
-					</div>
-					@if(Auth::user()->role_id == 1)
-						<div class="form-group {{ $errors->has('technical') ? ' has-error' : '' }}">
-							{!! Form::label('Tecnico') !!}
-							<select class="form-control" name="technical_id">
-								<option value=""></option>
-								@foreach ($users as $u)
-									<option value="{{$u->Uid}}">{{$u->Uname}} {{$u->Ulastname}}</option>
-								@endforeach
-							</select>
-							@if ($errors->has('technical'))
-								<span class="help-block">
-									<strong>{{ $errors->first('technical') }}</strong>
-								</span>
-							@endif
-						</div>
-					@endif
-
-					<div class="form-group">
-						<div class="col-md-6" style="margin-top: 20px;">
-							{!! Form::submit('ENVIAR', ['class' => 'btn btn-primary btn-block']) !!}
-						</div>
-					</div>
-					{!! Form::close() !!} --}}
-				{{-- </div> --}}
-			</div>
-		{{-- @endif --}}
+	</div>
 @endsection

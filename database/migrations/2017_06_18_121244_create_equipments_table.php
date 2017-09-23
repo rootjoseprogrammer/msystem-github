@@ -19,7 +19,9 @@ class CreateEquipmentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('department_id')->unsigned();
             $table->integer('brand_id')->unsigned();
-            $table->integer('displays_id')->unsigned()->nullable();
+            $table->integer('display_id')->unsigned()->nullable();
+            $table->integer('keyboad_id')->unsigned()->nullable();
+            $table->integer('mouse_id')->unsigned()->nullable();
             $table->integer('hard_driver_id')->unsigned()->nullable();
             $table->integer('ram_id')->unsigned()->nullable();
             $table->integer('video_id')->unsigned()->nullable();
@@ -43,7 +45,9 @@ class CreateEquipmentsTable extends Migration
 
             //PIEZAS QUE LE PERTENECEN AL COMPUTADOR
             $table->foreign('microprocessor_id')->references('id')->on('microprocessors');
-            $table->foreign('displays_id')->references('id')->on('displays');
+            $table->foreign('display_id')->references('id')->on('components');
+            $table->foreign('keyboad_id')->references('id')->on('other_components');
+            $table->foreign('mouse_id')->references('id')->on('other_components');
             $table->foreign('ram_id')->references('id')->on('rams');
             $table->foreign('video_id')->references('id')->on('videos');
             $table->foreign('motherboard_id')->references('id')->on('motherboards');

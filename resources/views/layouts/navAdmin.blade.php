@@ -49,7 +49,7 @@
         @if(Auth::check())
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                {!! Auth::user()->name !!} {!! Auth::user()->lastname !!} <i class="fa fa-caret-down"></i>
+                {!! Auth::user()->email !!} <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>
@@ -119,6 +119,38 @@
                             </li>
                         </ul>
                 </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-square" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Mouse <span class="fa arrow"></span>
+                    </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ url('/mouses') }}">Ver Mouse</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/mouses/create') }}">Registrar Mouse</a>
+                            </li>
+                        </ul>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-square" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Teclado <span class="fa arrow"></span>
+                    </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ url('/keyboards') }}">Ver Teclado</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/keyboards/create') }}">Registrar Teclado</a>
+                            </li>
+                        </ul>
+                </li>
+
+
 
                 <li>
                     <a href="#">

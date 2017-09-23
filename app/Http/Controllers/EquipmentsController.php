@@ -38,19 +38,13 @@ class EquipmentsController extends Controller
         if($request->isMethod('get') and isset($request->serial))
         {
             $equipments = Equipment::serial($request->serial);
-            //dd('!post');
         }
         else
         {
-            //dd('serail');
-
-            $equipments = Equipment::equipments();
-            //dd($equipments);
+            $equipments = Equipment::orderBy('id', 'asc')->paginate(16);
         }
 
-        $department_id = Auth::user()->department_id;
-
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         return view('equipments.index', compact('equipments', 'messages'));
     }
@@ -65,9 +59,7 @@ class EquipmentsController extends Controller
         $departments = DB::table('departments')->orderBy('name', 'asc')->get();
         $brands = Brand::AllBrands();
 
-        $department_id = Auth::user()->department_id;
-
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         return view('equipments.create', compact('departments', 'brands', 'messages'));
     }

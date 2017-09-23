@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
       return view('dashboard.jobs',  compact('messages', 'total'));
     }
-    
+
     /*
     *Crear una solcitud al departamento
     *de mantenimento desde informatca
@@ -76,9 +76,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $department_id = Auth::user()->department_id;
-
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         return view('dashboard.index', compact('messages'));
     }
@@ -87,15 +85,8 @@ class DashboardController extends Controller
     public function requests()
     {
 
-        $department_id = Auth::user()->department_id;
-
-        $total = Application::getAll($department_id);
-
-        //dd($total);
-
-        $messages = Application::getMessages($department_id);
-
-        //dd($messages);
+        $total = Application::getAll(Auth::user()->department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         return view('dashboard.requests',  compact('messages', 'total'));
     }
@@ -103,11 +94,8 @@ class DashboardController extends Controller
     //METODO PARA MODIFICAR INFORMACION DEL USUARIO
     public function settings()
     {
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
-
-        $id = Auth::user()->id;
-        $user = User::find($id);
+        $messages = Application::getMessages(Auth::user()->department_id);
+        $user = User::find(Auth::user()->id);
 
         return view('dashboard.settings', compact('user', 'messages'));
     }
@@ -115,12 +103,13 @@ class DashboardController extends Controller
     //editar el mensaje de respuesta para el ususario que pide el mantenimento
     public function edit($id)
     {
+      $users = User::UserInformatic();
       $messages = Application::getMessages(Auth::user()->department_id);
 
       $request = Application::getRequestFirst($id);
       //dd($sm);
 
-      return view('dashboard.edit', compact('request', 'messages'));
+      return view('dashboard.edit', compact('users', 'request', 'messages'));
     }
 
     public function updateAnswer(Request $request, $id)
@@ -150,7 +139,8 @@ class DashboardController extends Controller
            Application::where('id', $id)
                    ->update(['status' => $request->status,
                    'answer' => $request->answer,
-                   'completed_work' => null
+                   'completed_work' => null,
+                   'technical_user_id' => $request->technical_id
                  ]);
          }
          else
@@ -237,9 +227,7 @@ class DashboardController extends Controller
         Application::where('id', $id)
                 ->update(['message_read' => 'si']);
 
-        $department_id = Auth::user()->department_id;
-
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
 
         $request = Application::getRequest($id);
         //dd($sm);
@@ -255,14 +243,14 @@ class DashboardController extends Controller
      */
     public function destroy($id)
     {
-        //
-        // $a = Application::find($id);
-        //
-        // $a->delete();
-        //
-        // Session::flash('message-delete', 'REGISTRO BORRADO');
-        //
-        // return redirect()->to('dashboard/requests');
+
+        $a = Application::find($id);
+
+        $a->delete();
+
+        Session::flash('message-delete', 'REGISTRO BORRADO');
+
+        return redirect()->to('dashboard/requests');
     }
 
 

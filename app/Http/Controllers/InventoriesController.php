@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Application;
 use App\Inventory;
 use App\Equipment;
+use App\Component;
+use App\OtherComponent;
 use App\Record;
 use App\Department;
 use App\Brand;
@@ -47,12 +49,9 @@ class InventoriesController extends Controller
       }
       else
       {
-            $stock = Inventory::InventoryAll();
-          //dd($HardDrives);
+        $stock = Inventory::InventoryAll();
       }
-        //$stock = Inventory::InventoryAll();
-        $department_id = Auth::user()->department_id;
-        $messages = Application::getMessages($department_id);
+        $messages = Application::getMessages(Auth::user()->department_id);
         return view('inventories.index', compact('messages', 'stock'));
     }
 
@@ -64,8 +63,7 @@ class InventoriesController extends Controller
     public function create()
     {
       $equipments = Equipment::EquipmentsAll();
-      $department_id = Auth::user()->department_id;
-      $messages = Application::getMessages($department_id);
+      $messages = Application::getMessages(Auth::user()->department_id);
 
       $hd = HardDrive::getAll();
       $rams = Ram::getAll();
@@ -77,7 +75,10 @@ class InventoriesController extends Controller
       $cpu = Microprocessor::getAll();
       $net = NetCard::getAll();
 
-      return view('inventories.create', compact('messages', 'equipments', 'hd', 'rams', 'videos', 'ms', 'rd', 'cpu', 'net'));
+      $displays = Component::getAll('display');
+      $keyboards = OtherComponent::getAll('keyboard');
+      $mouses = OtherComponent::getAll('mouse');
+      return view('inventories.create', compact('messages', 'equipments', 'hd', 'rams', 'videos', 'ms', 'rd', 'cpu', 'net', 'displays', 'mouses', 'keyboards'));
     }
 
     /**
@@ -105,6 +106,9 @@ class InventoriesController extends Controller
           'read_driver_id' => $request->rd_id,
           'net_card_id' => $request->net_id,
           'microprocessor_id'=> $request->cpu_id,
+          'display_id' => $request->display_id,
+          'keyboard_id' => $request->keyboard_id,
+          'mouse_id' => $request->mouse_id,
           'inventory' => '1',
           'updated_at' => date("Y-m-d H:i:s")]);
 
@@ -130,6 +134,18 @@ class InventoriesController extends Controller
           'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
         ]);
         NetCard::where('id', $request->net_id)->update([
+          'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        Component::where('id', $request->display_id)->update([
+          'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        OtherComponent::where('id', $request->keyboard_id)->update([
+          'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+        OtherComponent::where('id', $request->mouse_id)->update([
           'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
         ]);
 
@@ -190,11 +206,11 @@ class InventoriesController extends Controller
       $cpu = Microprocessor::getAll();
       $net = NetCard::getAll();
 
-      //dd($cpu);
+      $displays = Component::getAll('display');
+      $keyboards = OtherComponent::getAll('keyboard');
+      $mouses = OtherComponent::getAll('mouse');
 
-      //dd($this->hd_id);
-
-      return view('inventories.edit', compact('messages', 'i', 'departments', 'brands', 'hd', 'rams', 'videos', 'ms', 'rd', 'cpu', 'net'));
+      return view('inventories.edit', compact('messages', 'i', 'departments', 'brands', 'hd', 'rams', 'videos', 'ms', 'rd', 'cpu', 'net', 'displays', 'keyboards', 'mouses'));
     }
 
     /**
@@ -211,6 +227,7 @@ class InventoriesController extends Controller
       HardDrive::where('id', $request->hd_id_old)->update([
         'registered' => 0, 'updated_at' => date("Y-m-d H:i:s")
       ]);
+
       Ram::where('id', $request->ram_id_old)->update([
         'registered' => 0, 'updated_at' => date("Y-m-d H:i:s")
       ]);
@@ -228,7 +245,20 @@ class InventoriesController extends Controller
       Microprocessor::where('id', $request->cpu_id_old)->update([
         'registered' => 0, 'updated_at' => date("Y-m-d H:i:s")
       ]);
+
       NetCard::where('id', $request->net_id_old)->update([
+        'registered' => 0, 'updated_at' => date("Y-m-d H:i:s")
+      ]);
+
+      Component::where('id', $request->display_id_old)->update([
+        'registered' => 0, 'updated_at' => date("Y-m-d H:i:s")
+      ]);
+
+      OtherComponent::where('id', $request->keyboard_id_old)->update([
+        'registered' => 0, 'updated_at' => date("Y-m-d H:i:s")
+      ]);
+
+      OtherComponent::where('id', $request->mouse_id_old)->update([
         'registered' => 0, 'updated_at' => date("Y-m-d H:i:s")
       ]);
 
@@ -257,6 +287,18 @@ class InventoriesController extends Controller
         'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
       ]);
 
+      Component::where('id', $request->display_id)->update([
+        'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
+      ]);
+
+      OtherComponent::where('id', $request->keyboard_id)->update([
+        'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
+      ]);
+
+      OtherComponent::where('id', $request->mouse_id)->update([
+        'registered' => 1, 'updated_at' => date("Y-m-d H:i:s")
+      ]);
+
       //dd($request->all());
 
         Equipment::where('id', $id)
@@ -269,6 +311,9 @@ class InventoriesController extends Controller
           'read_driver_id' => $request->rd_id,
           'net_card_id' => $request->net_id,
           'microprocessor_id'=> $request->cpu_id,
+          'display_id' => $request->display_id,
+          'keyboard_id' => $request->keyboard_id,
+          'mouse_id' => $request->mouse_id,
           'type' => $request->type,
           'serial' => $request->serial,
           'IP' => $request->ip,
@@ -292,6 +337,10 @@ class InventoriesController extends Controller
 
     public function delete($id)
     {
+      $i = Inventory::find($id);
+      $messages = Application::getMessages(Auth::user()->department_id);
+
+      return view('inventories.delete', compact('i', 'messages'));
 
     }
 
@@ -301,18 +350,24 @@ class InventoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reason $request, $id)
+    public function destroy(Request $request, $id)
     {
-        // //
-        // Record::create([
-        //   'date' => date("Y-m-d H:i:s"),
-        //   'user' => Auth::user()->name.' '.Auth::user()->lastname,
-        //   'host' => $_SERVER['REMOTE_ADDR'],
-        //   'operation' => 'DELETE',
-        //   'table' => 'Iventarios',
-        //   'reason' => $request->reason
-        // ]);
+        //
+        $i = Inventory::find($id);
 
+        Record::create([
+          'date' => date("Y-m-d H:i:s"),
+          'user' => Auth::user()->name.' '.Auth::user()->lastname,
+          'host' => $_SERVER['REMOTE_ADDR'],
+          'operation' => 'DELETE',
+          'table' => 'Iventarios',
+          'reason' => $request->reason
+        ]);
 
+        $i->delete();
+
+        Session::flash('message-delete', 'REGISTRO BORRADO');
+
+        return redirect()->to('inventories');
     }
 }
