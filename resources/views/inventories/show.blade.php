@@ -12,8 +12,8 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					{{ strtoupper($data->Eserial) }}
 					<a href="{{url('inventories')}}" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+					{{ strtoupper($data->Eserial) }}
 				</div>
         <div class="panel-body">
           <div class="table-responsive">

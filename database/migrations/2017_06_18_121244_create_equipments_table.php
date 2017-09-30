@@ -20,7 +20,7 @@ class CreateEquipmentsTable extends Migration
             $table->integer('department_id')->unsigned();
             $table->integer('brand_id')->unsigned();
             $table->integer('display_id')->unsigned()->nullable();
-            $table->integer('keyboad_id')->unsigned()->nullable();
+            $table->integer('keyboard_id')->unsigned()->nullable();
             $table->integer('mouse_id')->unsigned()->nullable();
             $table->integer('hard_driver_id')->unsigned()->nullable();
             $table->integer('ram_id')->unsigned()->nullable();

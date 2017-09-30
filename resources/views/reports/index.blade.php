@@ -20,6 +20,14 @@
                 <a class="btn btn-default btn-block" href="{{url('reports/displays')}}" title="">PDF MONITOR</a>
             </div>
 
+						<div class="col-lg-6" style="margin-top: 10px;">
+                <a class="btn btn-default btn-block" href="{{url('reports/mouses')}}" title="">PDF MOUSE</a>
+            </div>
+
+						<div class="col-lg-6" style="margin-top: 10px;">
+                <a class="btn btn-default btn-block" href="{{url('reports/keyboards')}}" title="">PDF TECLADO</a>
+            </div>
+
             <div class="col-lg-6" style="margin-top: 10px;">
                 <a class="btn btn-default btn-block" href="{{url('reports/printers')}}" title="">PDF IMPRESORA</a>
             </div>

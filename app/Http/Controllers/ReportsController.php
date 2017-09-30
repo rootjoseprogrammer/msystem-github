@@ -14,6 +14,7 @@ use App\Video;
 use App\Equipment;
 use App\Application;
 use App\Component;
+use App\OtherComponent;
 use Auth;
 
 class ReportsController extends Controller
@@ -51,9 +52,11 @@ class ReportsController extends Controller
         $maints = Maintenance::getPDF();
 				$displays = Component::getPDF('display');
 				$printers = Component::getPDF('printer');
+				$mouses = OtherComponent::getPDF('mouse');
+				$keyboards = OtherComponent::getPDF('keyboards');
 
         $view = \View::make('reports.reportGeneral', compact('eq',
-            'HardDrives', 'micros','ms', 'nets', 'rams' , 'reads', 'videos', 'maints', 'displays', 'printers'))->render();
+            'HardDrives', 'micros','ms', 'nets', 'rams' , 'reads', 'videos', 'maints', 'displays', 'printers', 'mouses', 'keyboards'))->render();
 
 
         $pdf = \App::make('dompdf.wrapper')->setPaper('A4', 'landscape');
@@ -62,6 +65,36 @@ class ReportsController extends Controller
 
         return $pdf->stream();
 
+    }
+
+		public function reportsMouses()
+    {
+    	$mouses = OtherComponent::getPDF('mouse');
+			// dd($eq);
+
+    	$view = \View::make('reports.reportMouse', compact('mouses'))->render();
+
+
+    	$pdf = \App::make('dompdf.wrapper');
+
+			$pdf->loadHTML($view)->setPaper('A4', 'landscape');
+
+			return $pdf->stream();
+    }
+
+		public function reportsKeyboards()
+    {
+    	$keyboards = OtherComponent::getPDF('keyboard');
+			// dd($eq);
+
+    	$view = \View::make('reports.reportKeyboards', compact('keyboards'))->render();
+
+
+    	$pdf = \App::make('dompdf.wrapper');
+
+			$pdf->loadHTML($view)->setPaper('A4', 'landscape');
+
+			return $pdf->stream();
     }
 
 		public function reportsDisplays()

@@ -69,6 +69,58 @@
 </div>
 
 <div>
+	<p><strong>Cantidad Total de keyboard:</strong> {{ $keyboards->count() }}</p>
+</div>
+<div class="">
+	<table class="table">
+        <thead>
+        	<tr>
+						<th>Serial</th>
+						<th>Bien Nacional</th>
+						<th>Tipo de Puerto</th>
+						<th>Marca</th>
+        	</tr>
+        </thead>
+        <tbody>
+        @foreach($keyboards as $keyboard)
+        	<tr>
+						<td>{{ $keyboard->serial }}</td>
+						<td>{{ $keyboard->national_number }}</td>
+						<td>{{ $keyboard->type_port }}</td>
+						<td>{{ $keyboard->Bname }}</td>
+         	</tr>
+         @endforeach
+        </tbody>
+    </table>
+</div>
+
+<div>
+	<p><strong>Cantidad Total de Mouse:</strong> {{ $mouses->count() }}</p>
+</div>
+<div class="">
+	<table class="table">
+        <thead>
+        	<tr>
+						<th>Serial</th>
+						<th>Bien Nacional</th>
+						<th>Tipo de Puerto</th>
+						<th>Marca</th>
+        	</tr>
+        </thead>
+        <tbody>
+        @foreach($mouses as $mouse)
+        	<tr>
+						<td>{{ $mouse->serial }}</td>
+						<td>{{ $mouse->national_number }}</td>
+						<td>{{ $mouse->type_port }}</td>
+						<td>{{ $mouse->Bname }}</td>
+         	</tr>
+         @endforeach
+        </tbody>
+    </table>
+</div>
+
+<div>
 	<p><strong>Cantidad Total de Impresoras:</strong> {{ $printers->count() }}</p>
 </div>
 <div class="">

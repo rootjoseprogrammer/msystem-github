@@ -133,6 +133,8 @@ Route::get('keyboards/delete/{id}', 'KeyboardsController@delete');
 //RUTAS PARA REPORTES EN PDF
 Route::get('reports/equipments', 'ReportsController@reportsEquipments');
 Route::get('reports/displays', 'ReportsController@reportsDisplays');
+Route::get('reports/mouses', 'ReportsController@reportsMouses');
+Route::get('reports/keyboards', 'ReportsController@reportsKeyboards');
 Route::get('reports/printers', 'ReportsController@reportsPrinters');
 Route::get('reports/drives', 'ReportsController@reportsDrives');
 Route::get('reports/microprocessors', 'ReportsController@reportsMicro');
